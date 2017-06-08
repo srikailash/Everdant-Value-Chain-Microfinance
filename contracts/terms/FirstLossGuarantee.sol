@@ -44,9 +44,11 @@ contract FirstLossGuarantee is BaseTerm {
     _;
   }
 
-  function approve() isParentContract atStatus(Status.Pending) {
+  function approve() isParentContract atStatus(Status.Pending)
+      returns (bool success) {
       freezeAmount(guaranteeAmount);
       status = Status.Approved;
+      return true;
   }
 
   function onContractSuccess() isParentContract atStatus(Status.Approved) {
@@ -59,23 +61,28 @@ contract FirstLossGuarantee is BaseTerm {
       status = Status.Finished;
   }
 
-  function endGuarantee() isParentContract atStatus(Status.Approved) returns (bool _success){
+  function endGuarantee() isParentContract atStatus(Status.Approved)
+      returns (bool _success) {
       unFreezeAmount();
       status = Status.Finished;
       return true;
   }
 
-  function freezeAmount(uint amount) isParentContract atStatus(Status.Approved){
+  function freezeAmount(uint amount) isParentContract atStatus(Status.Approved)
+      returns (bool success) {
       if (token.transferFrom(guarantor, address(this), amount) != true)
       {
           throw;
       }
       frozenAmount = amount;
+      return true;
   }
 
-  function unFreezeAmount() isParentContract atStatus(Status.Approved){
+  function unFreezeAmount() isParentContract atStatus(Status.Approved)
+      returns (bool success) {
       token.transfer(guarantor, frozenAmount);
       frozenAmount = 0;
+      return true;
   }
 
   function() payable { }
