@@ -12,7 +12,7 @@ contract SimpleLoan {
 		  //uint constant precision=10000; Precision as no decimals in Solidity TODO
 		  uint amount;
 		  uint balance;
-		  uint interestRate;
+		  uint interestRate; //Annualized
 		  uint interest;
 		  uint issuedAt;
 			Status status;
@@ -39,7 +39,7 @@ contract SimpleLoan {
 			//status = Status.Pending;
 	}
 
-	function approveLoan(uint _id) 
+	function approveLoan(uint _id)
 
 	public payable isLender(_id) {
 
@@ -102,7 +102,7 @@ contract SimpleLoan {
           throw;
       }
 
-      uint difference = block.timestamp - loan.issuedAt;
+      uint difference = (block.timestamp - loan.issuedAt) / 1 days;
       uint interestAccrued = calculateInterest(_id, difference);
       loan.balance -= loan.amount - interestAccrued;
       if (loan.balance <= 0) {
