@@ -30,9 +30,7 @@ contract SimpleLoan {
 			uint id
 	);
 
-	function SimpleLoan(
-			address _tokenAddress
-  ) {
+	function SimpleLoan(address _tokenAddress) {
 
 			loanNumber = 0;
 			tokenAddress = _tokenAddress;
@@ -41,7 +39,9 @@ contract SimpleLoan {
 			//status = Status.Pending;
 	}
 
-	function approveLoan(uint _id) public payable isLender(_id) {
+	function approveLoan(uint _id) 
+
+	public payable isLender(_id) {
 
 		Loan loan = loans[_id];
 		if (token.transferFrom(msg.sender, loan.borrower, loan.amount) != true)

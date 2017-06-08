@@ -1,13 +1,16 @@
 var BaseToken = artifacts.require("BaseToken");
 var SimpleLoan = artifacts.require("SimpleLoan");
 
+
+
 contract('BaseToken', function(accounts) {
   it("Testing token transfer and Approve Loan", function() {
-    return BaseToken.deployed().then(function(instance) {
-
+    
+        return BaseToken.deployed().then(function(instance) 
+        {
         //console.log(instance);
         var token = instance;
-        var loan;
+        var loan;        
         instance.balanceOf.call(accounts[0]).then(function(balance) {
           console.log(accounts[0]);
           console.log(balance.valueOf());
@@ -44,4 +47,6 @@ contract('BaseToken', function(accounts) {
         });
     });
   });
+  
+
 });

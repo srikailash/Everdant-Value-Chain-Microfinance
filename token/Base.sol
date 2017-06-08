@@ -43,7 +43,7 @@ contract BaseToken {
         balanceOf[_to] += _value;                            // Add the same to the recipient
         Transfer(msg.sender, _to, _value);                   // Notify anyone listening that this transfer took place
     }
-
+    
     /* Allow another contract to spend some tokens in your behalf */
     function approve(address _spender, uint256 _value)
         returns (bool success) {
@@ -99,10 +99,5 @@ contract BaseToken {
         return true;
     }
 }
-
-
-
-
-
 
 
