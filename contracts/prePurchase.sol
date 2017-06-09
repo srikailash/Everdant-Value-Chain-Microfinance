@@ -1,10 +1,10 @@
 import "../token/Base.sol";
 pragma solidity ^0.4.11;
-
-
-//this contract happens in the buyer side
 contract prePurchase{
+    
     mapping (bytes32  => bytes32[]) public suppliersOf;
+    mapping (address => bool ) addressSupplier;
+    
     
     address tokenAddress;
     address purchaser;
@@ -24,6 +24,11 @@ contract prePurchase{
         uint totalCharge;
         //add required date here
         //quality specs
+    }
+    
+    modifier isSupplier(address supplier){
+        if(addressSupplier[supplier]!= true)
+            _;
     }
     
     function stringToBytes32(string memory source) returns (bytes32 result) {
@@ -77,22 +82,25 @@ contract prePurchase{
     }
     
     function negotiate(address supplier) internal  returns(order finalised){
-        order or;
+        order storage or;
         //negotiations here
         finalised = or;
     }
     
+    //called from webpage
+    function acceptOrder(order ord) isSupplier(ord.supplier) internal returns(bool success) 
+    {
+        return true;
+    }
+        
+    
+    
     function placeOrder(order  ord , address supplier) internal{
         // sendOrder(negotiate(supplier) , supplier);
         // uint intialPayment;
-        token.transferFrom(ord.purchaser , ord.supplier ,  ord.firstInstallment);
+        if(acceptOrder(ord) == true)
+            token.transferFrom(ord.purchaser , ord.supplier ,  ord.firstInstallment);
     }
+
+    
 }
-
-
-
-
-
-
-
-
