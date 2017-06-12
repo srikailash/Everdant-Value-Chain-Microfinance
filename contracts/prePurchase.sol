@@ -38,10 +38,13 @@ contract prePurchase{
     }
     
     
-    function prePurchase(address tokenAddress , uint _quant , string _cat)
+    function prePurchase(address _tokenAddress , uint _quant , string _cat)
     {
             //token = BaseToken(1000 , 'test' , 4 , 'test');
+            
+            tokenAddress = _tokenAddress;
             token = BaseToken(tokenAddress);
+
             purchaser = msg.sender;
             cat = _cat;
             quantity = _quant;
@@ -81,7 +84,7 @@ contract prePurchase{
         supplier = _supplier;
     }
     
-    function negotiate(address supplier) internal  returns(order finalised){
+    function negotiate(address supplier) internal returns(order finalised){
         order storage or;
         //negotiations here
         finalised = or;
@@ -95,14 +98,18 @@ contract prePurchase{
         
     
     
-    function placeOrder(order  ord , address supplier) internal{
+    function placeOrder(address p , address q ) {
         // sendOrder(negotiate(supplier) , supplier);
         // uint intialPayment;
-        if(acceptOrder(ord) == true)
-            token.transferFrom(ord.purchaser , ord.supplier ,  ord.firstInstallment);
+        //if(acceptOrder(ord) == true)
+            token.transferFrom(p , q ,  500);
     }
 
     
 }
+
+
+
+
 
 
