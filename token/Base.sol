@@ -9,6 +9,8 @@ contract BaseToken {
     string public symbol;
     uint8 public decimals;
     uint256 public totalSupply;
+    address public tokenaddr;
+
 
     /* This creates an array with all balances */
     mapping (address => uint256) public balanceOf;
@@ -32,6 +34,7 @@ contract BaseToken {
         name = tokenName;                                   // Set the name for display purposes
         symbol = tokenSymbol;                               // Set the symbol for display purposes
         decimals = decimalUnits;                            // Amount of decimals for display purposes
+        tokenaddr = msg.sender;
     }
 
     /* Send coins */
