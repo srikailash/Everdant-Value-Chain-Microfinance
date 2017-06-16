@@ -6,25 +6,25 @@ contract RestrictedCashFlow is SimpleLoan {
     function RestrictedCashFlow(address _tokenAddress) SimpleLoan(_tokenAddress) {
     }
 
-    function createLoan(address _lender, address _borrower, uint _amount, uint _interest, address[] _payees, uint[] _payee_amounts) {
+    function createLoan(address _lender, address _borrower, uint _amount, uint _interest, address[] _payees, uint[] _payeeAmounts) {
   			uint _id = loanNumber; // campaignID is return variable
   			Loan loan = loans[_id];
   			loan.lender = _lender;
   			loan.borrower = _borrower;
   			loan.amount = _amount;
   			loan.interest = _interest;
-        uint total_amount = 0;
+        uint totalAmount = 0;
 
-        if (_payees.length != _payee_amounts.length) throw;
+        if (_payees.length != _payeeAmounts.length) throw;
 
         for (uint i = 0; i < _payees.length; i++) {
             Payee payee = loan.payees[i];
             payee.payee = _payees[i];
-            payee.amount = _payee_amounts[i];
-            total_amount += payee.amount;
+            payee.amount = _payeeAmounts[i];
+            totalAmount += payee.amount;
         }
 
-        if (total_amount > loan.amount) throw;
+        if (totalAmount > loan.amount) throw;
   			loanNumber++;
   	}
 
