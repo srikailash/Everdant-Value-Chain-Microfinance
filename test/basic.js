@@ -5,8 +5,8 @@ var prePurchase = artifacts.require("prePurchase");
 
 contract('BaseToken', function(accounts) {
   it("Testing token transfer and Approve Loan", function() {
-    
-        return BaseToken.deployed().then(function(instance) 
+
+        return BaseToken.deployed().then(function(instance)
         {
         //console.log(instance);
         var token = instance;
@@ -14,7 +14,7 @@ contract('BaseToken', function(accounts) {
 
         instance.balanceOf.call(accounts[1]).then(function(balance) {
           console.log(accounts[0]);
-          console.log(balance.valueOf());       
+          console.log(balance.valueOf());
           console.log(instance.address);
 
         }).then(function() {
@@ -49,7 +49,7 @@ contract('BaseToken', function(accounts) {
         }).then(function(){
             return prePurchase.new(token.address , 10 , "test");
         }).then(function(instance){
-            
+
             //check why these are undefined
             console.log(instance.tokenAddress);
             console.log(instance.purchaser);
@@ -63,15 +63,3 @@ contract('BaseToken', function(accounts) {
     });
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-

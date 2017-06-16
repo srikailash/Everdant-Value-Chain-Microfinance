@@ -6,6 +6,12 @@ contract SimpleLoan {
 
 	enum Status { Pending, Approved, Finished }
 
+	//For RestrictedCashFlow
+	struct Payee {
+				address payee;
+				uint amount;
+	}
+
 	struct Loan {
 			address lender;
 		  address borrower;
@@ -16,6 +22,7 @@ contract SimpleLoan {
 		  uint interest;
 		  uint issuedAt;
 			Status status;
+			Payee[] payees;
 	}
 
   BaseToken token;
